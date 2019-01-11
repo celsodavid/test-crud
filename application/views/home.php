@@ -36,8 +36,8 @@
                     <th scope="row"><?php echo $cadastro->id ?></th>
                     <td><?php echo $cadastro->nome ?></td>
                     <td><?php echo $cadastro->email ?></td>
-                    <td><?php echo $cadastro->telefone ?></td>
-                    <td><?php echo $cadastro->rg ?></td>
+                    <td class="exampleInputPhone"><?php echo $cadastro->telefone ?></td>
+                    <td class="exampleInputRg"><?php echo $cadastro->rg ?></td>
                     <td>
                         <a class="btn btn-default btn-xs" href="<?php echo base_url('cadastro/ver/' . $cadastro->id); ?>" role="button">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -58,3 +58,10 @@
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".exampleInputPhone").mask('(00)0000.00000');
+        $(".exampleInputRg").mask('00.000.000-0', {reverse: true});
+    });
+</script>
