@@ -3,12 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cadastro extends CI_Controller
 {
+    private $cadastros;
     private $regex = '/(\()?(10)|([1-9]){2}\)?((-|\s)?)([2-9][0-9]{3}((-|\s)?)[0-9]{4,5})/';
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('cadastro_model', 'modelcadastro');
+        $this->cadastros = $this->modelcadastro->findAll();
     }
 
     public function index()
@@ -45,13 +47,23 @@ class Cadastro extends CI_Controller
 
             if ($this->modelcadastro->insert($dados)) {
                 $this->session->set_flashdata('success', 'Cadastro efetuado com sucesso!');
-                redirect('home');
+                redirect('cadastro/listar');
             }
 
             $this->session->set_flashdata('error', 'Cadastro não pode ser efetuado!');
             redirect('cadastro');
         }
 	}
+
+	public function listar()
+    {
+        $data_header['menu'] = 'hom';
+        $data_page['cadastros'] = $this->cadastros;
+
+        $this->load->view('base/header', $data_header);
+        $this->load->view('lista_cadastro', $data_page);
+        $this->load->view('base/footer');
+    }
 
 	public function editar($id)
     {
@@ -95,7 +107,7 @@ class Cadastro extends CI_Controller
 
             if ($this->modelcadastro->editar($this->input->post('id'), $dados)) {
                 $this->session->set_flashdata('success', 'Cadastro editado com sucesso!');
-                redirect('home');
+                redirect('cadastro/listar');
             }
 
             $this->session->set_flashdata('error', 'Cadastro não pode ser editado!');
@@ -127,7 +139,7 @@ class Cadastro extends CI_Controller
     {
         if (!$this->modelcadastro->findById($id)) {
             $this->session->set_flashdata('error', '1 Cadastro não pode ser excluido!');
-            redirect('home');
+            redirect('cadastro/listar');
         }
 
         if ($this->modelcadastro->excluir($id)) {
@@ -136,6 +148,6 @@ class Cadastro extends CI_Controller
             $this->session->set_flashdata('error', '2 Cadastro não pode ser excluido!');
         }
 
-        redirect('home');
+        redirect('cadastro/listar');
     }
 }

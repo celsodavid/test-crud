@@ -20,13 +20,18 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
+                    <li role="presentation">
+                        <a href="<?php echo base_url('home') ?>">Home</a>
+                    </li>
+                <?php if (!isset($titulo_menu)): ?>
                     <li role="presentation" <?php echo ($menu == 'hom') ? 'class="active"' : ''; ?>>
-                        <a href="<?php echo base_url() ?>">Listar</a>
+                        <a href="<?php echo base_url('cadastro/listar') ?>">Listar</a>
                     </li>
                     <li role="presentation" <?php echo ($menu == 'cad') ? 'class="active"' : ''; ?>>
                         <a href="<?php echo base_url('cadastro') ?>">Cadastrar</a>
                     </li>
+                <?php endif; ?>
                 </ul>
             </nav>
-            <h3 class="text-muted">Lista de Cadastros</h3>
+            <h3 class="text-muted"><?php echo (isset($titulo_menu)) ? $titulo_menu : 'Lista de Cadastros' ?></h3>
         </div>
