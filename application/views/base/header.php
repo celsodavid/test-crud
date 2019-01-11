@@ -8,6 +8,11 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
         <link href="<?php echo base_url('assets/css/jumbotron-narrow.css') ?>" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"
+                integrity="sha256-ivk71nXhz9nsyFDoYoGf2sbjrR9ddh+XDkCcfZxjvcM=" crossorigin="anonymous"></script>
+        <script src="<?php echo base_url('assets/js/bootstrap.js') ?>"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
         <title>Test Crud</title>
     </head>
     <body>

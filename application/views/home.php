@@ -1,6 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="row marketing">
     <div class="col-lg-12">
+        <?php if (!is_null($this->session->flashdata('success'))) : ?>
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>Sucesso!</strong> <?php echo $this->session->flashdata('success') ?>
+            </div>
+        <?php endif; ?>
         <table class="table table-striped">
             <thead>
                 <tr>

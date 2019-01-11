@@ -29,4 +29,9 @@ class Cadastro_model extends CI_Model
             return false;
         }
     }
+
+    public function insert($dados)
+    {
+        return $this->db->insert('cadastro', $dados);
+    }
 }
