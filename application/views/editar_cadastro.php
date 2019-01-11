@@ -12,16 +12,16 @@
 
         <?php echo validation_errors(); ?>
 
-        <form method="post" action="<?php echo base_url('cadastro/adicionar') ?>" id="form_cadastro">
+        <form method="post" action="<?php echo base_url('cadastro/alterar') ?>" id="form_cadastro">
             <div class="form-group">
                 <label for="exampleInputNome">Nome</label>
                 <input type="text" class="form-control" id="exampleInputNome" name="nome"
-                       placeholder="Nome" value="<?php echo set_value('nome') ?>">
+                       placeholder="Nome" value="<?php echo set_value('nome', $cadastro->nome) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                       placeholder="E-mail" value="<?php echo set_value('email') ?>">
+                       placeholder="E-mail" value="<?php echo set_value('email', $cadastro->email) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Senha</label>
@@ -31,34 +31,37 @@
             <div class="form-group">
                 <label for="exampleInputPasswordConfirm">Confirmar Senha</label>
                 <input type="password" class="form-control" id="exampleInputPasswordConfirm" name="confirmar_senha"
-                       placeholder="Confirmar Senha" value="<?php echo set_value('confirmar_senha') ?>">
+                       placeholder="Confirmar Senha"
+                       value="<?php echo set_value('confirmar_senha') ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputPhone">Telefone</label>
                 <input type="text" class="form-control" id="exampleInputPhone" name="telefone"
-                       placeholder="Telefone" value="<?php echo set_value('telefone') ?>">
+                       placeholder="Telefone" value="<?php echo set_value('telefone', $cadastro->telefone) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputRg">RG</label>
                 <input type="text" class="form-control" id="exampleInputRg" name="rg"
-                       placeholder="RG" value="<?php echo set_value('rg') ?>">
+                       placeholder="RG" value="<?php echo set_value('rg', $cadastro->rg) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputCep">Cep</label>
                 <input type="text" class="form-control" id="exampleInputCep" name="cep"
-                       placeholder="Cep"  value="<?php echo set_value('cep') ?>">
+                       placeholder="Cep"  value="<?php echo set_value('cep', $cadastro->cep) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputAddress">Endereço</label>
                 <input type="text" class="form-control" id="exampleInputAddress" name="endereco"
-                       placeholder="Endereço"  value="<?php echo set_value('endereco') ?>">
+                       placeholder="Endereço"  value="<?php echo set_value('endereco', $cadastro->endereco) ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputNumber">Número</label>
                 <input type="text" class="form-control" id="exampleInputNumber" name="numero"
-                       placeholder="Número"  value="<?php echo set_value('numero') ?>">
+                       placeholder="Número"  value="<?php echo set_value('numero', $cadastro->numero) ?>">
             </div>
-            <button type="submit" class="btn btn-default">Cadastrar</button>
+
+            <input type="hidden" name="id" value="<?php echo $cadastro->id ?>">
+            <button type="submit" class="btn btn-default">Alterar</button>
         </form>
     </div>
 </div>
