@@ -9,6 +9,16 @@
                 <strong>Sucesso!</strong> <?php echo $this->session->flashdata('success') ?>
             </div>
         <?php endif; ?>
+
+        <?php if (!is_null($this->session->flashdata('error'))) : ?>
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>Ops!</strong> <?php echo $this->session->flashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
         <table class="table table-striped">
             <thead>
                 <tr>

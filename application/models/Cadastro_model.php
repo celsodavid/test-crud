@@ -34,4 +34,24 @@ class Cadastro_model extends CI_Model
     {
         return $this->db->insert('cadastro', $dados);
     }
+
+    public function editar($id, $dados)
+    {
+        try {
+            if (!$this->findById($id)) {
+                throw new Exception('ID de cadastro não encontrado', 404);
+            }
+
+            $this->db->where('id', $id);
+            return $this->db->update('cadastro', $dados);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function excluir($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('cadastro');
+    }
 }

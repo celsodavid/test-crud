@@ -27,7 +27,8 @@ class Cadastro extends CI_Controller
         $this->form_validation->set_rules('nome', 'Nome', 'required');
         $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email|is_unique[cadastro.email]');
         $this->form_validation->set_rules('senha', 'Senha', 'required|min_length[6]');
-        $this->form_validation->set_rules('confirmar_senha', 'Confirmar Senha', 'required|min_length[6]|matches[senha]');
+        $this->form_validation->set_rules('confirmar_senha', 'Confirmar Senha',
+            'required|min_length[6]|matches[senha]');
         $this->form_validation->set_rules('telefone', 'Telefone', 'required|callback_valida_telefone');
         if ($this->form_validation->run() == false) {
             $this->index();
@@ -42,7 +43,7 @@ class Cadastro extends CI_Controller
             $dados['endereco']  = $this->input->post('endereco');
             $dados['telefone']  = $this->input->post('telefone');
 
-            if (!$this->modelcadastro->insert($dados)) {
+            if ($this->modelcadastro->insert($dados)) {
                 $this->session->set_flashdata('success', 'Cadastro efetuado com sucesso!');
                 redirect('home');
             }
@@ -52,9 +53,54 @@ class Cadastro extends CI_Controller
         }
 	}
 
-	public function editar()
+	public function editar($id)
     {
+        $data_header['menu'] = 'cad';
+        $data_page['cadastro'] = $this->modelcadastro->findById($id);
 
+        $this->load->view('base/header', $data_header);
+        $this->load->view('editar_cadastro', $data_page);
+        $this->load->view('base/footer');
+    }
+
+    public function alterar()
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('nome', 'Nome', 'required');
+        $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email');
+        $this->form_validation->set_rules('telefone', 'Telefone', 'required|callback_valida_telefone');
+
+        if ($this->input->post('senha') != "") {
+            $this->form_validation->set_rules('senha', 'Senha', 'required|min_length[6]');
+            $this->form_validation->set_rules('confirmar_senha', 'Confirmar Senha',
+                'required|min_length[6]|matches[senha]');
+        }
+
+        if ($this->form_validation->run() == false) {
+            $this->editar($this->input->post('id'));
+        }
+        else {
+            $dados['rg']        = $this->input->post('rg');
+            $dados['cep']       = $this->input->post('cep');
+            $dados['nome']      = $this->input->post('nome');
+            $dados['email']     = $this->input->post('email');
+            $dados['numero']    = $this->input->post('numero');
+            $dados['endereco']  = $this->input->post('endereco');
+            $dados['telefone']  = $this->input->post('telefone');
+
+            if ($this->input->post('senha') != "") {
+                $dados['senha']     = md5($this->input->post('senha'));
+            }
+
+            if ($this->modelcadastro->editar($this->input->post('id'), $dados)) {
+                $this->session->set_flashdata('success', 'Cadastro editado com sucesso!');
+                redirect('home');
+            }
+
+            $this->session->set_flashdata('error', 'Cadastro não pode ser editado!');
+            redirect('cadastro/editar/'.$this->input->post('id'));
+        }
     }
 
 	public function valida_telefone($tel)
@@ -77,8 +123,19 @@ class Cadastro extends CI_Controller
         $this->load->view('base/footer');
 	}
 
-    public function excluir()
+    public function excluir($id)
     {
-        
+        if (!$this->modelcadastro->findById($id)) {
+            $this->session->set_flashdata('error', '1 Cadastro não pode ser excluido!');
+            redirect('home');
+        }
+
+        if ($this->modelcadastro->excluir($id)) {
+            $this->session->set_flashdata('success', 'Cadastro excluido com sucesso!');
+        } else {
+            $this->session->set_flashdata('error', '2 Cadastro não pode ser excluido!');
+        }
+
+        redirect('home');
     }
 }
